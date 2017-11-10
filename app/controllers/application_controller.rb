@@ -11,7 +11,7 @@ private
 
   def authenticate_token!
     payload = JsonWebToken.decode(auth_token)
-    @current_user = User.find(payload['sub'])
+    @current_user = User.find(payload['sub']['user_id'])
   rescue JWT::DecodeError
     render json: { errors: ['Invalid authentication token'] }, status: :unauthorized
   end
